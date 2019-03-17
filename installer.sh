@@ -7,12 +7,11 @@ function BootstrapInstaller {
   # Node.Js LTS version
   curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
   apt-get install -y nodejs
-  
 }
 
 function BootstrapAgent {
   # Clone agent project
-  git clone git@github.com:osagent/agent.git /home/osagent
+  git clone git@github.com:osagent/agent.git /home/osagent -y
 
   # Navite to agent path
   cd /home/osagent
@@ -22,7 +21,7 @@ function BootstrapAgent {
 }
 
 function BootstrapSystemdService {
-  node src
+  node /home/osagent/src
 }
 
 # Bootstrap the installer
