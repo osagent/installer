@@ -2,11 +2,11 @@
 
 function BootstrapInstaller {
   # General packages
-  apt install git -y
+  apt-get install -y git
 
   # Node.Js LTS version
   curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  apt install nodejs - y
+  apt-get install -y nodejs
 }
 
 function BootstrapAgent {
