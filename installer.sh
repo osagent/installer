@@ -11,17 +11,17 @@ function BootstrapInstaller {
 
 function BootstrapAgent {
   # Clone agent project
-  git clone git@github.com:osagent/agent.git /home/agent
+  git clone git@github.com:osagent/agent.git /home/osagent
 
   # Navite to agent path
-  cd /home/agent
+  cd /home/osagent
 
   # Install dependencies
   npm install
 }
 
 function BootstrapSystemdService {
-
+  node src
 }
 
 # Bootstrap the installer
