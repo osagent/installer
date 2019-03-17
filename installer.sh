@@ -1,4 +1,4 @@
-function BootstrapInstaller() {
+function BootstrapInstaller {
   # General packages
   apt install git -y
 
@@ -7,7 +7,7 @@ function BootstrapInstaller() {
   apt install nodejs - y
 }
 
-function BootstrapAgent() {
+function BootstrapAgent {
   # Clone agent project
   git clone git@github.com:osagent/agent.git /home/agent
 
@@ -18,7 +18,7 @@ function BootstrapAgent() {
   npm install
 }
 
-function BootstrapSystemdService() {
+function BootstrapSystemdService {
 
 }
 
