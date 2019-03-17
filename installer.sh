@@ -11,7 +11,7 @@ function BootstrapInstaller {
 
 function BootstrapAgent {
   # Clone agent project
-  git clone git@github.com:osagent/agent.git /home/osagent -y
+  git clone git@github.com:osagent/agent.git /home/osagent
 
   # Navite to agent path
   cd /home/osagent
