@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function BootstrapInstaller {
   # General packages
   apt install git -y
