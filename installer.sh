@@ -24,7 +24,20 @@ function BootstrapAgent {
 }
 
 function BootstrapSystemdService {
-  node /home/osagent/src
+  # Disable if exists previous agent
+  systemctl disable osagent
+
+  # Remove and copy a new service file
+  rm -rf /lib/systemd/system/osagent.service
+  cp /home/osagent/configs/osagent.service /lib/systemd/system/osagent.service
+
+  # Reload services
+  systemctl daemon-reload
+
+  # Enable and start agent service
+  systemctl disable osagent
+  systemctl enable osagent
+  systemctl start osagent
 }
 
 # Bootstrap the installer
