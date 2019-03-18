@@ -10,6 +10,9 @@ function BootstrapInstaller {
 }
 
 function BootstrapAgent {
+  # Remove previous agent
+  rm -rf /home/osagent
+
   # Clone agent project
   git clone https://github.com/osagent/agent.git /home/osagent
 
