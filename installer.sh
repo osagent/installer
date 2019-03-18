@@ -10,6 +10,10 @@ function BootstrapInstaller {
 }
 
 function BootstrapAgent {
+  # Stop and disable if exists previous agent
+  systemctl stop osagent
+  systemctl disable osagent
+  
   # Remove previous agent
   rm -rf /home/osagent
 
@@ -24,9 +28,6 @@ function BootstrapAgent {
 }
 
 function BootstrapSystemdService {
-  # Disable if exists previous agent
-  systemctl disable osagent
-
   # Remove and copy a new service file
   rm -rf /lib/systemd/system/osagent.service
   cp /home/osagent/configs/osagent.service /lib/systemd/system/osagent.service
@@ -35,7 +36,6 @@ function BootstrapSystemdService {
   systemctl daemon-reload
 
   # Enable and start agent service
-  systemctl disable osagent
   systemctl enable osagent
   systemctl start osagent
 }
