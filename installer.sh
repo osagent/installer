@@ -1,43 +1,45 @@
 #!/bin/bash
 
 function BootstrapInstaller {
-  # General packages
-  apt-get install -y git
+    # General packages
+    sudo apt-get install -y curl git
 
-  # Node.Js LTS version
-  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  apt-get install -y nodejs
+    # Node.Js LTS version
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt-get install -y nodejs build-essential
 }
 
 function BootstrapAgent {
-  # Stop and disable if exists previous agent
-  systemctl stop osagent
-  systemctl disable osagent
-  
-  # Remove previous agent
-  rm -rf /home/osagent
+    # Stop and disable if exists previous agent
+    if [[ "$(systemctl list-unit-files | grep 'osagent\.service')" ]]; then
+        sudo systemctl stop osagent
+        sudo systemctl disable osagent
+    fi
 
-  # Clone agent project
-  git clone https://github.com/osagent/agent.git /home/osagent
+    # Remove previous agent
+    sudo rm -rf /opt/osagent
 
-  # Navite to agent path
-  cd /home/osagent
+    # Clone agent project
+    sudo git clone https://github.com/osagent/agent.git /opt/osagent
 
-  # Install dependencies
-  npm install
+    # Navite to agent path
+    cd /opt/osagent
+
+    # Install dependencies
+    npm install
 }
 
 function BootstrapSystemdService {
-  # Remove and copy a new service file
-  rm -rf /lib/systemd/system/osagent.service
-  cp /home/osagent/configs/osagent.service /lib/systemd/system/osagent.service
+    # Remove and copy a new service file
+    sudo rm -rf /lib/systemd/system/osagent.service
+    sudo cp /opt/osagent/configs/osagent.service /lib/systemd/system/osagent.service
 
-  # Reload services
-  systemctl daemon-reload
+    # Reload services
+    sudo systemctl daemon-reload
 
-  # Enable and start agent service
-  systemctl enable osagent
-  systemctl start osagent
+    # Enable and start agent service
+    sudo systemctl enable osagent
+    sudo systemctl start osagent
 }
 
 # Bootstrap the installer
