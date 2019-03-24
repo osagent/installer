@@ -17,7 +17,9 @@ function BootstrapAgent {
     fi
 
     # Remove previous agent
-    sudo rm -rf /opt/osagent
+    if [[ -d '/opt/osagent' ]]; then
+        sudo rm -rf /opt/osagent
+    fi
 
     # Clone agent project
     sudo git clone https://github.com/osagent/agent.git /opt/osagent
@@ -31,7 +33,10 @@ function BootstrapAgent {
 
 function BootstrapSystemdService {
     # Remove and copy a new service file
-    sudo rm -rf /lib/systemd/system/osagent.service
+    if [[ -f '/lib/systemd/system/osagent.service' ]]; then
+        sudo rm -rf /lib/systemd/system/osagent.service
+    fi
+
     sudo cp /opt/osagent/configs/osagent.service /lib/systemd/system/osagent.service
 
     # Reload services
